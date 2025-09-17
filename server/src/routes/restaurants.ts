@@ -117,9 +117,9 @@ router.get('/', optionalAuth, async (req: AuthenticatedRequest, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -224,9 +224,9 @@ router.get('/:id', optionalAuth, async (req: AuthenticatedRequest, res, next) =>
       data: restaurant,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -301,9 +301,9 @@ router.get('/:id/menu', optionalAuth, async (req: AuthenticatedRequest, res, nex
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -392,9 +392,9 @@ router.get('/:id/reviews', optionalAuth, async (req: AuthenticatedRequest, res, 
       return acc;
     }, {} as Record<number, number>);
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -519,9 +519,9 @@ router.get('/search/:query', optionalAuth, async (req: AuthenticatedRequest, res
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 

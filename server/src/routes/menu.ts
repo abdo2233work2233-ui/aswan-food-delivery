@@ -66,9 +66,9 @@ router.get('/items/:id', async (req, res, next) => {
       data: menuItem,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -127,9 +127,9 @@ router.get('/popular', async (req, res, next) => {
       data: popularItems,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -238,9 +238,9 @@ router.get('/search/:query', async (req, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -305,9 +305,9 @@ router.get('/categories', async (req, res, next) => {
       data: categories,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 

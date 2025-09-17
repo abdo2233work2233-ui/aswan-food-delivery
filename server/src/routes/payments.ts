@@ -91,9 +91,9 @@ router.post('/create-intent', authenticateToken, async (req: AuthenticatedReques
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -141,9 +141,9 @@ router.post('/confirm/:orderId', authenticateToken, async (req: AuthenticatedReq
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -190,9 +190,9 @@ router.get('/status/:orderId', authenticateToken, async (req: AuthenticatedReque
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -280,9 +280,9 @@ router.post('/refund/:orderId', authenticateToken, async (req: AuthenticatedRequ
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -298,10 +298,10 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
     // Handle webhook
     await paymentService.handleStripeWebhook(signature, req.body);
 
-    res.json({ received: true });
+    return res.json({ received: true });
   } catch (error) {
     console.error('Webhook error:', error);
-    res.status(400).json({ error: 'Webhook signature verification failed' });
+    return res.status(400).json({ error: 'Webhook signature verification failed' });
   }
 });
 

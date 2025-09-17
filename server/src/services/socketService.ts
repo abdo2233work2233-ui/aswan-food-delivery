@@ -69,9 +69,10 @@ export const initializeSocket = (io: Server) => {
     socket.join(`role_${user.role}`);
 
     // Handle location updates (for delivery drivers)
-    socket.on('location_update', async (data: { latitude: number; longitude: number; orderId?: string }) => {
+    socket.on('location_update', async (data: { latitude: number; longitude: number; orderId?: string }): Promise<void> => {
       if (user.role !== UserRole.DELIVERY_DRIVER) {
-        return socket.emit('error', { message: 'Only delivery drivers can send location updates' });
+        socket.emit('error', { message: 'Only delivery drivers can send location updates' });
+        return;
       }
 
       try {
@@ -81,7 +82,8 @@ export const initializeSocket = (io: Server) => {
         if (!latitude || !longitude || 
             latitude < -90 || latitude > 90 || 
             longitude < -180 || longitude > 180) {
-          return socket.emit('error', { message: 'Invalid coordinates' });
+          socket.emit('error', { message: 'Invalid coordinates' });
+          return;
         }
 
         // If orderId is provided, notify the customer
@@ -122,7 +124,7 @@ export const initializeSocket = (io: Server) => {
     });
 
     // Handle order status updates
-    socket.on('order_status_update', async (data: { orderId: string; status: string; message?: string }) => {
+    socket.on('order_status_update', async (data: { orderId: string; status: string; message?: string }): Promise<void> => {
       try {
         const { orderId, status, message } = data;
 
@@ -144,7 +146,8 @@ export const initializeSocket = (io: Server) => {
         });
 
         if (!order) {
-          return socket.emit('error', { message: 'Order not found or access denied' });
+          socket.emit('error', { message: 'Order not found or access denied' });
+          return;
         }
 
         // Send update to customer
@@ -173,9 +176,10 @@ export const initializeSocket = (io: Server) => {
     });
 
     // Handle driver availability updates
-    socket.on('driver_availability', async (data: { isAvailable: boolean }) => {
+    socket.on('driver_availability', async (data: { isAvailable: boolean }): Promise<void> => {
       if (user.role !== UserRole.DELIVERY_DRIVER) {
-        return socket.emit('error', { message: 'Only delivery drivers can update availability' });
+        socket.emit('error', { message: 'Only delivery drivers can update availability' });
+        return;
       }
 
       try {
@@ -199,9 +203,10 @@ export const initializeSocket = (io: Server) => {
     });
 
     // Handle new order notifications (for restaurant owners)
-    socket.on('join_restaurant', async (data: { restaurantId: string }) => {
+    socket.on('join_restaurant', async (data: { restaurantId: string }): Promise<void> => {
       if (user.role !== UserRole.RESTAURANT_OWNER && user.role !== UserRole.ADMIN) {
-        return socket.emit('error', { message: 'Access denied' });
+        socket.emit('error', { message: 'Access denied' });
+        return;
       }
 
       try {
@@ -215,7 +220,8 @@ export const initializeSocket = (io: Server) => {
           });
 
           if (!restaurant) {
-            return socket.emit('error', { message: 'Restaurant not found or access denied' });
+            socket.emit('error', { message: 'Restaurant not found or access denied' });
+            return;
           }
         }
 
@@ -230,8 +236,8 @@ export const initializeSocket = (io: Server) => {
     socket.on('send_message', async (data: { 
       orderId: string; 
       message: string; 
-      recipientRole: 'customer' | 'restaurant' | 'driver'; 
-    }) => {
+      recipientRole: 'customer' | 'restaurant' | 'driver';
+    }): Promise<void> => {
       try {
         const { orderId, message, recipientRole } = data;
 
@@ -254,7 +260,8 @@ export const initializeSocket = (io: Server) => {
         });
 
         if (!order) {
-          return socket.emit('error', { message: 'Order not found or access denied' });
+          socket.emit('error', { message: 'Order not found or access denied' });
+          return;
         }
 
         // Determine recipient
@@ -272,7 +279,8 @@ export const initializeSocket = (io: Server) => {
         }
 
         if (!recipientId) {
-          return socket.emit('error', { message: 'Recipient not found' });
+          socket.emit('error', { message: 'Recipient not found' });
+          return;
         }
 
         // Send message

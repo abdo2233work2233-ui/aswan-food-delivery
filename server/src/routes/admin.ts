@@ -155,9 +155,9 @@ router.get('/analytics', async (req: AuthenticatedRequest, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -238,9 +238,9 @@ router.get('/users', async (req: AuthenticatedRequest, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -289,9 +289,9 @@ router.put('/users/:id/status', async (req: AuthenticatedRequest, res, next) => 
       data: user,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -380,9 +380,9 @@ router.get('/restaurants', async (req: AuthenticatedRequest, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -426,9 +426,9 @@ router.put('/restaurants/:id/status', async (req: AuthenticatedRequest, res, nex
       data: restaurant,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -535,9 +535,9 @@ router.get('/orders', async (req: AuthenticatedRequest, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -564,9 +564,9 @@ router.get('/settings', async (req: AuthenticatedRequest, res, next) => {
       data: groupedSettings,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -597,9 +597,9 @@ router.put('/settings/:key', async (req: AuthenticatedRequest, res, next) => {
       data: setting,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 

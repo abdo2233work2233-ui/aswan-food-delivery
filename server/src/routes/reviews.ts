@@ -150,9 +150,9 @@ router.post('/', authenticateToken, async (req: AuthenticatedRequest, res, next)
       data: review,
     };
 
-    res.status(201).json(response);
+    return res.status(201).json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -221,9 +221,9 @@ router.get('/', async (req, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -273,9 +273,9 @@ router.get('/:id', async (req, res, next) => {
       data: review,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -368,9 +368,9 @@ router.put('/:id', authenticateToken, async (req: AuthenticatedRequest, res, nex
       data: updatedReview,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -435,9 +435,9 @@ router.delete('/:id', authenticateToken, async (req: AuthenticatedRequest, res, 
       messageAr: 'تم حذف التقييم بنجاح',
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -525,9 +525,9 @@ router.get('/stats/:restaurantId', async (req, res, next) => {
       data: stats,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 

@@ -57,9 +57,9 @@ router.get('/profile', async (req: AuthenticatedRequest, res, next) => {
       data: user,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -91,9 +91,9 @@ router.put('/profile', async (req: AuthenticatedRequest, res, next) => {
       data: updatedUser,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -147,9 +147,9 @@ router.put('/password', async (req: AuthenticatedRequest, res, next) => {
       messageAr: 'تم تغيير كلمة المرور بنجاح',
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -171,9 +171,9 @@ router.get('/addresses', async (req: AuthenticatedRequest, res, next) => {
       data: addresses,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -260,9 +260,9 @@ router.put('/addresses/:id', async (req: AuthenticatedRequest, res, next) => {
       data: updatedAddress,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -332,9 +332,9 @@ router.delete('/addresses/:id', async (req: AuthenticatedRequest, res, next) => 
       messageAr: 'تم حذف العنوان بنجاح',
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -381,9 +381,9 @@ router.put('/addresses/:id/default', async (req: AuthenticatedRequest, res, next
       messageAr: 'تم تحديث العنوان الافتراضي بنجاح',
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -470,9 +470,9 @@ router.get('/orders', async (req: AuthenticatedRequest, res, next) => {
       },
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 

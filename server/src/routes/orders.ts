@@ -67,9 +67,9 @@ router.post('/calculate', rateLimiting.couponValidation, async (req: Authenticat
       discount: calculationResult.discount,
     });
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -590,9 +590,9 @@ router.post('/', rateLimiting.checkout, rateLimiting.orderCreation, rateLimiting
       },
     };
 
-    res.status(201).json(response);
+    return res.status(201).json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -672,9 +672,9 @@ router.get('/:id', async (req: AuthenticatedRequest, res, next) => {
       data: order,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -795,9 +795,9 @@ router.put('/:id/status', async (req: AuthenticatedRequest, res, next) => {
       data: updatedOrder,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
@@ -854,9 +854,9 @@ router.put('/:id/cancel', async (req: AuthenticatedRequest, res, next) => {
       data: cancelledOrder,
     };
 
-    res.json(response);
+    return res.json(response);
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
