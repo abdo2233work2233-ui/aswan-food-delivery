@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: aswan-food-postgres
+    environment:
+      POSTGRES_DB: aswan_food_db
+      POSTGRES_USER: aswan_user
+      POSTGRES_PASSWORD: aswan_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - aswan-network
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: aswan-food-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - aswan-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Backend API Server
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: aswan-food-api
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://aswan_user:aswan_password@postgres:5432/aswan_food_db
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+      - JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-this-in-production
+      - PORT=5000
+      - CLIENT_URL=http://localhost:3000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+      - ./server/uploads:/app/uploads
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - aswan-network
+    restart: unless-stopped
+    command: npm run dev
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: aswan-food-frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000/api
+      - REACT_APP_ENV=development
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - api
+    networks:
+      - aswan-network
+    restart: unless-stopped
+    command: npm start
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  aswan-network:
+    driver: bridge

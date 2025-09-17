@@ -1,0 +1,223 @@
+{
+  "validation": {
+    "required": "This field is required",
+    "email": {
+      "invalid": "Please enter a valid email address",
+      "required": "Email address is required",
+      "exists": "An account with this email already exists",
+      "notFound": "No account found with this email address"
+    },
+    "password": {
+      "required": "Password is required",
+      "minLength": "Password must be at least {{min}} characters long",
+      "invalid": "Invalid password"
+    },
+    "phone": {
+      "invalid": "Please enter a valid phone number",
+      "required": "Phone number is required",
+      "exists": "An account with this phone number already exists"
+    },
+    "name": {
+      "required": "Name is required",
+      "minLength": "Name must be at least {{min}} characters long",
+      "maxLength": "Name cannot exceed {{max}} characters"
+    },
+    "address": {
+      "required": "Address is required",
+      "invalid": "Invalid address format"
+    },
+    "orderItems": {
+      "required": "Order items are required",
+      "empty": "Order cannot be empty",
+      "invalid": "Invalid order items"
+    },
+    "restaurant": {
+      "notFound": "Restaurant not found",
+      "closed": "Restaurant is currently closed",
+      "inactive": "Restaurant is not available"
+    },
+    "menuItem": {
+      "notFound": "Menu item not found",
+      "unavailable": "Menu item is not available",
+      "outOfStock": "Menu item is out of stock"
+    },
+    "quantity": {
+      "invalid": "Invalid quantity",
+      "minimum": "Minimum quantity is {{min}}",
+      "maximum": "Maximum quantity is {{max}}"
+    },
+    "paymentMethod": {
+      "required": "Payment method is required",
+      "invalid": "Invalid payment method"
+    },
+    "coupon": {
+      "invalid": "Invalid coupon code",
+      "expired": "Coupon has expired",
+      "notApplicable": "Coupon is not applicable to this order",
+      "minimumOrder": "Order must be at least {{amount}} to use this coupon"
+    }
+  },
+  "auth": {
+    "login": {
+      "success": "Login successful",
+      "failed": "Login failed",
+      "invalidCredentials": "Invalid email or password",
+      "accountLocked": "Account is locked due to multiple failed attempts",
+      "accountInactive": "Account is inactive. Please contact support."
+    },
+    "register": {
+      "success": "Account created successfully",
+      "failed": "Registration failed",
+      "emailExists": "An account with this email already exists",
+      "phoneExists": "An account with this phone number already exists"
+    },
+    "logout": {
+      "success": "Logout successful"
+    },
+    "token": {
+      "invalid": "Invalid authentication token",
+      "expired": "Authentication token has expired",
+      "missing": "Authentication token is required"
+    },
+    "password": {
+      "changed": "Password changed successfully",
+      "resetSent": "Password reset instructions sent to your email",
+      "resetFailed": "Failed to reset password",
+      "resetExpired": "Password reset link has expired"
+    }
+  },
+  "orders": {
+    "created": "Order placed successfully",
+    "failed": "Failed to place order",
+    "notFound": "Order not found",
+    "cancelled": "Order cancelled successfully",
+    "cannotCancel": "Order cannot be cancelled",
+    "statusUpdated": "Order status updated successfully",
+    "minimumAmount": "Order amount must be at least {{amount}}",
+    "maximumAmount": "Order amount cannot exceed {{amount}}",
+    "restaurantClosed": "Restaurant is currently closed",
+    "deliveryUnavailable": "Delivery is not available to this location",
+    "paymentFailed": "Payment processing failed",
+    "paymentSuccess": "Payment processed successfully"
+  },
+  "restaurants": {
+    "notFound": "Restaurant not found",
+    "closed": "Restaurant is currently closed",
+    "inactive": "Restaurant is not available",
+    "created": "Restaurant created successfully",
+    "updated": "Restaurant updated successfully",
+    "deleted": "Restaurant deleted successfully"
+  },
+  "addresses": {
+    "created": "Address added successfully",
+    "updated": "Address updated successfully",
+    "deleted": "Address deleted successfully",
+    "notFound": "Address not found",
+    "setDefault": "Default address updated successfully"
+  },
+  "profile": {
+    "updated": "Profile updated successfully",
+    "notFound": "User profile not found",
+    "avatarUploaded": "Profile picture updated successfully",
+    "avatarFailed": "Failed to upload profile picture"
+  },
+  "cart": {
+    "itemAdded": "Item added to cart",
+    "itemRemoved": "Item removed from cart",
+    "itemUpdated": "Cart item updated",
+    "cleared": "Cart cleared",
+    "empty": "Cart is empty",
+    "itemNotFound": "Cart item not found"
+  },
+  "notifications": {
+    "orderConfirmed": "Your order has been confirmed",
+    "orderPreparing": "Your order is being prepared",
+    "orderReady": "Your order is ready for pickup",
+    "orderOutForDelivery": "Your order is out for delivery",
+    "orderDelivered": "Your order has been delivered",
+    "orderCancelled": "Your order has been cancelled",
+    "paymentReceived": "Payment received successfully",
+    "paymentFailed": "Payment failed. Please try again.",
+    "welcome": "Welcome to Aswan Food Delivery!"
+  },
+  "errors": {
+    "general": "An error occurred. Please try again.",
+    "network": "Network error. Please check your connection.",
+    "serverError": "Internal server error. Please try again later.",
+    "notFound": "Resource not found",
+    "unauthorized": "Unauthorized access",
+    "forbidden": "Access forbidden",
+    "badRequest": "Bad request",
+    "validation": "Validation error",
+    "timeout": "Request timeout",
+    "serviceUnavailable": "Service temporarily unavailable",
+    "tooManyRequests": "Too many requests. Please try again later.",
+    "databaseError": "Database error occurred",
+    "fileUploadError": "File upload failed",
+    "fileTooBig": "File size is too large",
+    "invalidFileType": "Invalid file type",
+    "maintenanceMode": "System is under maintenance"
+  },
+  "success": {
+    "general": "Operation completed successfully",
+    "created": "Created successfully",
+    "updated": "Updated successfully",
+    "deleted": "Deleted successfully",
+    "saved": "Saved successfully",
+    "sent": "Sent successfully",
+    "uploaded": "Uploaded successfully"
+  },
+  "email": {
+    "welcome": {
+      "subject": "Welcome to Aswan Food Delivery!",
+      "greeting": "Welcome {{name}}!",
+      "message": "Thank you for joining Aswan Food Delivery. Start exploring delicious food from local restaurants."
+    },
+    "orderConfirmation": {
+      "subject": "Order Confirmation #{{orderNumber}}",
+      "greeting": "Hi {{name}},",
+      "message": "Your order has been confirmed and is being prepared.",
+      "orderDetails": "Order Details",
+      "trackOrder": "Track your order"
+    },
+    "passwordReset": {
+      "subject": "Reset Your Password",
+      "greeting": "Hi {{name}},",
+      "message": "Click the link below to reset your password:",
+      "resetButton": "Reset Password",
+      "expiry": "This link will expire in 1 hour.",
+      "ignore": "If you didn't request this, please ignore this email."
+    }
+  },
+  "sms": {
+    "orderConfirmed": "Your order #{{orderNumber}} has been confirmed. Track it at {{trackingUrl}}",
+    "orderDelivered": "Your order #{{orderNumber}} has been delivered. Enjoy your meal!",
+    "verificationCode": "Your verification code is: {{code}}. Valid for 10 minutes."
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "totalOrders": "Total Orders",
+      "totalRevenue": "Total Revenue",
+      "activeRestaurants": "Active Restaurants",
+      "activeUsers": "Active Users"
+    },
+    "orders": {
+      "title": "Order Management",
+      "statusUpdated": "Order status updated successfully",
+      "refundProcessed": "Refund processed successfully"
+    },
+    "restaurants": {
+      "title": "Restaurant Management",
+      "approved": "Restaurant approved successfully",
+      "rejected": "Restaurant application rejected",
+      "suspended": "Restaurant suspended successfully"
+    },
+    "users": {
+      "title": "User Management",
+      "activated": "User account activated",
+      "deactivated": "User account deactivated",
+      "roleUpdated": "User role updated successfully"
+    }
+  }
+}
