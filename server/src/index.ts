@@ -48,13 +48,28 @@ const io = new Server(server, {
 // Initialize Prisma client
 export const prisma = new PrismaClient();
 
-// Initialize Redis client
+// Initialize Redis client (optional)
 export const redis = createClient({
   url: process.env.REDIS_URL || 'redis://localhost:6379',
 });
 
-// Connect to Redis
-redis.connect().catch(console.error);
+// Connect to Redis with error handling
+redis.connect().catch((error) => {
+  console.warn('⚠️ Redis connection failed, continuing without caching:', error.message);
+});
+
+// Redis error handling
+redis.on('error', (error) => {
+  console.warn('⚠️ Redis error:', error.message);
+});
+
+redis.on('connect', () => {
+  console.log('🔴 Redis: متصل');
+});
+
+redis.on('disconnect', () => {
+  console.log('🔴 Redis: منقطع');
+});
 
 // Rate limiting
 const limiter = rateLimit({
@@ -117,7 +132,7 @@ server.listen(PORT, () => {
   console.log(`📡 الخادم متاح على: http://localhost:${PORT}`);
   console.log(`🌐 البيئة: ${process.env.NODE_ENV || 'development'}`);
   console.log(`📊 قاعدة البيانات: متصلة`);
-  console.log(`🔴 Redis: متصل`);
+  console.log(`🔴 Redis: ${redis.isOpen ? 'متصل' : 'غير متصل (اختياري)'}`);
   console.log(`⚡ Socket.IO: متاح`);
   console.log('');
   console.log('📋 نقاط النهاية المتاحة:');

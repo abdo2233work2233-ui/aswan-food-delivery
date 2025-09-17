@@ -1,6 +1,9 @@
 # Multi-stage build for Node.js backend
 FROM node:18-alpine AS builder
 
+# Install OpenSSL for Prisma
+RUN apk add --no-cache openssl
+
 # Set working directory
 WORKDIR /app
 
@@ -23,8 +26,8 @@ RUN npm run build
 # Production stage
 FROM node:18-alpine AS production
 
-# Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+# Install dumb-init and OpenSSL for proper signal handling and Prisma
+RUN apk add --no-cache dumb-init openssl
 
 # Create app directory and user
 RUN addgroup -g 1001 -S nodejs
@@ -38,8 +41,9 @@ COPY --from=builder --chown=nodejs:nodejs /app/prisma ./prisma
 # Install only production dependencies
 RUN npm ci --only=production && npm cache clean --force
 
-# Copy built application
+# Copy built application and i18n files
 COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nodejs:nodejs /app/src/i18n ./src/i18n
 
 # Create uploads directory
 RUN mkdir -p uploads && chown -R nodejs:nodejs uploads
