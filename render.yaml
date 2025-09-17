@@ -1,8 +1,9 @@
 services:
   - type: web
     name: aswan-food-frontend
-    env: docker
-    dockerfilePath: ./client/Dockerfile
+    env: node
+    buildCommand: npm run render-build
+    startCommand: npm run render-start
     envVars:
       - key: REACT_APP_API_URL
         value: https://aswan-food-delivery.onrender.com
