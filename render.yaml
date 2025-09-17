@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: aswan-food-frontend
+    env: docker
+    dockerfilePath: ./client/Dockerfile
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://aswan-food-delivery.onrender.com
+      - key: REACT_APP_SOCKET_URL
+        value: https://aswan-food-delivery.onrender.com
+      - key: REACT_APP_ENVIRONMENT
+        value: production
+      - key: REACT_APP_VERSION
+        value: 1.0.0
