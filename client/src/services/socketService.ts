@@ -11,7 +11,7 @@ class SocketService {
       return;
     }
 
-    const serverUrl = process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000';
+    const serverUrl = process.env.REACT_APP_SOCKET_URL || 'https://aswan-food-delivery.onrender.com';
     
     this.socket = io(serverUrl, {
       auth: {
