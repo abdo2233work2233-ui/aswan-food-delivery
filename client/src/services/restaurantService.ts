@@ -12,7 +12,8 @@ import { getRestaurantsStore } from '../data/runtimeData';
 // Check if API is available
 const isApiAvailable = async (): Promise<boolean> => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/health`);
+    const apiUrl = process.env.REACT_APP_API_URL || 'https://aswan-food-delivery.onrender.com';
+    const response = await fetch(`${apiUrl}/health`);
     return response.ok;
   } catch {
     return false;
