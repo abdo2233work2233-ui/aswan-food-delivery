@@ -1,5 +1,5 @@
-// Service Worker for Aswan Food Delivery
-const CACHE_NAME = 'aswan-food-v1';
+// Service Worker for Aswan Food Delivery - Performance Optimized
+const CACHE_NAME = 'aswan-food-v2';
 const STATIC_CACHE_URLS = [
   '/',
   '/static/js/bundle.js',
@@ -8,7 +8,15 @@ const STATIC_CACHE_URLS = [
   '/favicon.ico'
 ];
 
-// Install event
+// Cache strategies for different resource types
+const CACHE_STRATEGIES = {
+  static: 'cache-first',
+  api: 'network-first',
+  images: 'cache-first',
+  fonts: 'cache-first'
+};
+
+// Install event - cache critical resources
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -21,7 +29,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate event
+// Activate event - clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -38,7 +46,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event
+// Fetch event with optimized caching strategies
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') {
@@ -50,33 +58,60 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        if (response) {
-          return response;
-        }
+  const url = new URL(event.request.url);
+  const pathname = url.pathname;
 
-        return fetch(event.request).then((response) => {
-          // Don't cache non-successful responses
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
+  // Determine cache strategy based on resource type
+  let strategy = 'network-first';
+  
+  if (pathname.includes('/static/') || pathname.includes('.css') || pathname.includes('.js')) {
+    strategy = 'cache-first';
+  } else if (pathname.includes('/api/')) {
+    strategy = 'network-first';
+  } else if (pathname.match(/\.(jpg|jpeg|png|gif|webp|svg)$/)) {
+    strategy = 'cache-first';
+  }
 
-          // Clone the response
-          const responseToCache = response.clone();
-
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-
-          return response;
-        });
-      })
-  );
+  event.respondWith(handleRequest(event.request, strategy));
 });
+
+// Optimized request handling
+async function handleRequest(request, strategy) {
+  const cache = await caches.open(CACHE_NAME);
+  
+  if (strategy === 'cache-first') {
+    // Try cache first, fallback to network
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    
+    try {
+      const networkResponse = await fetch(request);
+      if (networkResponse.ok) {
+        cache.put(request, networkResponse.clone());
+      }
+      return networkResponse;
+    } catch (error) {
+      return new Response('Offline', { status: 503 });
+    }
+  } else {
+    // Network first, fallback to cache
+    try {
+      const networkResponse = await fetch(request);
+      if (networkResponse.ok) {
+        cache.put(request, networkResponse.clone());
+      }
+      return networkResponse;
+    } catch (error) {
+      const cachedResponse = await cache.match(request);
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return new Response('Offline', { status: 503 });
+    }
+  }
+}
 
 // Background sync for offline orders
 self.addEventListener('sync', (event) => {

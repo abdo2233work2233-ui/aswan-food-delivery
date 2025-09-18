@@ -8,6 +8,7 @@ interface ImageProps {
   fallbackIcon?: React.ReactNode;
   priority?: boolean;
   sizes?: string;
+  quality?: number;
 }
 
 const Image: React.FC<ImageProps> = ({ 
@@ -17,14 +18,36 @@ const Image: React.FC<ImageProps> = ({
   fallbackText,
   fallbackIcon,
   priority = false,
-  sizes = '100vw'
+  sizes = '100vw',
+  quality = 75
 }) => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isInView, setIsInView] = useState(priority);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // Intersection Observer for lazy loading
+  // Optimize image URL for WebP support
+  const getOptimizedSrc = (originalSrc: string) => {
+    if (!originalSrc) return originalSrc;
+    
+    // Check if browser supports WebP
+    const supportsWebP = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1;
+      canvas.height = 1;
+      return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+    };
+
+    // For external images, we can't optimize them
+    if (originalSrc.startsWith('http')) {
+      return originalSrc;
+    }
+
+    // For local images, we could add WebP optimization here
+    return originalSrc;
+  };
+
+  // Intersection Observer for lazy loading with better performance
   useEffect(() => {
     if (priority || !imgRef.current) return;
 
@@ -35,7 +58,10 @@ const Image: React.FC<ImageProps> = ({
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      { 
+        threshold: 0.1, 
+        rootMargin: '50px'
+      }
     );
 
     observer.observe(imgRef.current);
@@ -68,6 +94,8 @@ const Image: React.FC<ImageProps> = ({
     );
   }
 
+  const optimizedSrc = getOptimizedSrc(src);
+
   return (
     <div className={`relative ${className}`} ref={imgRef}>
       {isLoading && (
@@ -77,7 +105,7 @@ const Image: React.FC<ImageProps> = ({
       )}
       {isInView && (
         <img
-          src={src}
+          src={optimizedSrc}
           alt={alt}
           className={`w-full h-full object-cover ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 ${className}`}
           onError={handleError}
@@ -85,6 +113,11 @@ const Image: React.FC<ImageProps> = ({
           loading={priority ? 'eager' : 'lazy'}
           sizes={sizes}
           decoding="async"
+          // Performance optimizations
+          style={{
+            willChange: isLoading ? 'opacity' : 'auto',
+            contain: 'layout style paint'
+          }}
         />
       )}
     </div>

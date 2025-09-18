@@ -12,15 +12,15 @@ import './styles/rtl.css'; // Import RTL styles
 import Layout from './components/layout/Layout';
 import LoadingScreen from './components/ui/LoadingScreen';
 
-// Dashboard Pages
-import CustomerDashboard from './pages/dashboard/customer/CustomerDashboard';
-import OwnerDashboard from './pages/dashboard/owner/OwnerDashboard';
-import DriverDashboard from './pages/dashboard/driver/DriverDashboard';
-import AdminDashboard from './pages/dashboard/admin/AdminDashboard';
-
 // Components
 import RoleGuard from './components/RoleGuard';
 import { UserRole } from './types';
+
+// Dashboard Pages - Lazy loaded for better performance
+const CustomerDashboard = React.lazy(() => import('./pages/dashboard/customer/CustomerDashboard'));
+const OwnerDashboard = React.lazy(() => import('./pages/dashboard/owner/OwnerDashboard'));
+const DriverDashboard = React.lazy(() => import('./pages/dashboard/driver/DriverDashboard'));
+const AdminDashboard = React.lazy(() => import('./pages/dashboard/admin/AdminDashboard'));
 
 // Lazy load pages for better performance
 const HomePage = React.lazy(() => import('./pages/HomePage'));

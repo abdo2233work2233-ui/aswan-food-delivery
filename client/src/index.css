@@ -177,6 +177,33 @@ body {
   .animate-pulse-fast {
     animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+  
+  /* Performance optimizations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .optimize-repaint {
+    contain: layout style paint;
+  }
+  
+  .stable-layout {
+    contain: layout;
+  }
+  
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Reduce animation complexity on mobile */
+  @media (max-width: 768px) {
+    .reduce-motion-mobile {
+      animation-duration: 0.1s !important;
+      transition-duration: 0.1s !important;
+    }
+  }
 }
 
 /* Custom animations */
