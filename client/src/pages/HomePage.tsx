@@ -106,7 +106,7 @@ const HomePage: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-6 text-center">
                   <FiTruck className="h-8 w-8 mx-auto mb-3 text-accent-300" />
-                  <h3 className="text-2xl font-bold mb-1">50+</h3>
+                  <div className="text-2xl font-bold mb-1">50+</div>
                   <p className="text-primary-100 text-sm">
                     {isArabic ? 'مطعم محلي' : 'Local Restaurants'}
                   </p>
@@ -114,7 +114,7 @@ const HomePage: React.FC = () => {
                 
                 <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-6 text-center">
                   <FiClock className="h-8 w-8 mx-auto mb-3 text-accent-300" />
-                  <h3 className="text-2xl font-bold mb-1">30</h3>
+                  <div className="text-2xl font-bold mb-1">30</div>
                   <p className="text-primary-100 text-sm">
                     {isArabic ? 'دقيقة توصيل' : 'Min Delivery'}
                   </p>
@@ -122,7 +122,7 @@ const HomePage: React.FC = () => {
                 
                 <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-6 text-center">
                   <FiStar className="h-8 w-8 mx-auto mb-3 text-accent-300" />
-                  <h3 className="text-2xl font-bold mb-1">4.8</h3>
+                  <div className="text-2xl font-bold mb-1">4.8</div>
                   <p className="text-primary-100 text-sm">
                     {isArabic ? 'تقييم العملاء' : 'Customer Rating'}
                   </p>
@@ -130,7 +130,7 @@ const HomePage: React.FC = () => {
                 
                 <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-6 text-center">
                   <FiMapPin className="h-8 w-8 mx-auto mb-3 text-accent-300" />
-                  <h3 className="text-2xl font-bold mb-1">24/7</h3>
+                  <div className="text-2xl font-bold mb-1">24/7</div>
                   <p className="text-primary-100 text-sm">
                     {isArabic ? 'خدمة متاحة' : 'Service Available'}
                   </p>
@@ -323,9 +323,9 @@ const HomePage: React.FC = () => {
                     {item.step}
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold text-neutral-800 mb-3">
+                <h2 className="text-xl font-semibold text-neutral-800 mb-3">
                   {item.title}
-                </h3>
+                </h2>
                 <p className="text-neutral-600">
                   {item.description}
                 </p>

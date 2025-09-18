@@ -205,7 +205,7 @@ const CartPage: React.FC = () => {
                             <span className="font-medium text-primary-600">
                               {item.menuItem.discountPrice} {isArabic ? 'ج.م' : 'EGP'}
                             </span>
-                            <span className="line-through text-neutral-400 mr-2 rtl:mr-0 rtl:ml-2">
+                            <span className="line-through text-neutral-600 mr-2 rtl:mr-0 rtl:ml-2">
                               {item.menuItem.price} {isArabic ? 'ج.م' : 'EGP'}
                             </span>
                           </>

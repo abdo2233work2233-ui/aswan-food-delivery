@@ -137,12 +137,12 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
                 {currentPrice} {isArabic ? 'ج.م' : 'EGP'}
               </span>
               {hasDiscount && (
-                <span className="text-sm text-neutral-400 line-through">
+                <span className="text-sm text-neutral-600 line-through">
                   {menuItem.price} {isArabic ? 'ج.م' : 'EGP'}
                 </span>
               )}
               {hasDiscount && (
-                <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded">
+                <span className="text-xs bg-red-200 text-red-800 px-1.5 py-0.5 rounded font-medium">
                   {Math.round(((menuItem.price - menuItem.discountPrice!) / menuItem.price) * 100)}% {isArabic ? 'خصم' : 'OFF'}
                 </span>
               )}

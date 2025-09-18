@@ -78,22 +78,22 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <a href="/help" className="text-neutral-400 hover:text-white transition-colors text-sm" aria-label={isArabic ? 'مركز المساعدة' : 'Help Center'}>
                   {isArabic ? 'مركز المساعدة' : 'Help Center'}
                 </a>
               </li>
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <a href="/faq" className="text-neutral-400 hover:text-white transition-colors text-sm" aria-label={isArabic ? 'الأسئلة الشائعة' : 'Frequently Asked Questions'}>
                   {isArabic ? 'الأسئلة الشائعة' : 'FAQ'}
                 </a>
               </li>
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <a href="/privacy" className="text-neutral-400 hover:text-white transition-colors text-sm" aria-label={isArabic ? 'سياسة الخصوصية' : 'Privacy Policy'}>
                   {isArabic ? 'سياسة الخصوصية' : 'Privacy Policy'}
                 </a>
               </li>
               <li>
-                <a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">
+                <a href="/terms" className="text-neutral-400 hover:text-white transition-colors text-sm" aria-label={isArabic ? 'الشروط والأحكام' : 'Terms of Service'}>
                   {isArabic ? 'الشروط والأحكام' : 'Terms of Service'}
                 </a>
               </li>
@@ -129,20 +129,29 @@ const Footer: React.FC = () => {
               </h5>
               <div className="flex space-x-3 rtl:space-x-reverse">
                 <a
-                  href="#"
+                  href="https://facebook.com/aswanfood"
                   className="w-8 h-8 bg-neutral-700 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors"
+                  aria-label={isArabic ? 'صفحة فيسبوك أسوان فود' : 'Aswan Food Facebook Page'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <FiFacebook className="h-4 w-4" />
                 </a>
                 <a
-                  href="#"
+                  href="https://instagram.com/aswanfood"
                   className="w-8 h-8 bg-neutral-700 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors"
+                  aria-label={isArabic ? 'صفحة إنستجرام أسوان فود' : 'Aswan Food Instagram Page'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <FiInstagram className="h-4 w-4" />
                 </a>
                 <a
-                  href="#"
+                  href="https://twitter.com/aswanfood"
                   className="w-8 h-8 bg-neutral-700 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors"
+                  aria-label={isArabic ? 'صفحة تويتر أسوان فود' : 'Aswan Food Twitter Page'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <FiTwitter className="h-4 w-4" />
                 </a>

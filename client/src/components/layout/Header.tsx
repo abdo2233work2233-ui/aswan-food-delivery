@@ -127,6 +127,7 @@ const Header: React.FC = () => {
               onClick={() => dispatch(toggleLanguage())}
               className="p-2 rounded-lg text-neutral-600 hover:bg-neutral-100 transition-colors"
               title={isArabic ? 'English' : 'العربية'}
+              aria-label={isArabic ? 'Switch to English' : 'التبديل إلى العربية'}
             >
               <FiGlobe className="h-5 w-5" />
             </button>
@@ -135,6 +136,7 @@ const Header: React.FC = () => {
             <button
               onClick={() => dispatch(toggleCartSidebar())}
               className="relative p-2 rounded-lg text-neutral-600 hover:bg-neutral-100 transition-colors"
+              aria-label={`${isArabic ? 'السلة' : 'Cart'} - ${cartItemsCount} ${isArabic ? 'عنصر' : 'items'}`}
             >
               <FiShoppingCart className="h-5 w-5" />
               {cartItemsCount > 0 && (
@@ -150,6 +152,9 @@ const Header: React.FC = () => {
                 <button
                   onClick={toggleUserMenu}
                   className="flex items-center space-x-2 rtl:space-x-reverse p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+                  aria-label={`${isArabic ? 'قائمة المستخدم' : 'User menu'} - ${user?.firstName || (isArabic ? 'عميل' : 'Customer')}`}
+                  aria-expanded={userMenuOpen}
+                  aria-haspopup="true"
                 >
                   <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-medium">
@@ -231,6 +236,7 @@ const Header: React.FC = () => {
             <button
               onClick={() => dispatch(toggleCartSidebar())}
               className="relative p-2 rounded-lg text-neutral-600"
+              aria-label={`${isArabic ? 'السلة' : 'Cart'} - ${cartItemsCount} ${isArabic ? 'عنصر' : 'items'}`}
             >
               <FiShoppingCart className="h-5 w-5" />
               {cartItemsCount > 0 && (
@@ -244,6 +250,9 @@ const Header: React.FC = () => {
             <button
               onClick={toggleMobileMenu}
               className="p-2 rounded-lg text-neutral-600"
+              aria-label={isArabic ? 'قائمة الهاتف المحمول' : 'Mobile menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {mobileMenuOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
             </button>
@@ -268,6 +277,7 @@ const Header: React.FC = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -278,6 +288,7 @@ const Header: React.FC = () => {
               <button
                 onClick={() => dispatch(toggleLanguage())}
                 className="flex items-center space-x-2 rtl:space-x-reverse w-full p-2 rounded-lg text-neutral-600 hover:bg-neutral-50"
+                aria-label={isArabic ? 'التبديل إلى الإنجليزية' : 'Switch to Arabic'}
               >
                 <FiGlobe className="h-5 w-5" />
                 <span>{isArabic ? 'English' : 'العربية'}</span>
