@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Google Fonts */
+/* Google Fonts with font-display: swap for better performance */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
@@ -15,6 +15,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-display: swap;
 }
 
 body {
@@ -24,6 +25,7 @@ body {
   background-color: theme('colors.neutral.50');
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-display: swap;
 }
 
 /* Arabic text styling */
@@ -59,10 +61,27 @@ body {
   background: theme('colors.neutral.400');
 }
 
-/* Focus styles */
+/* Focus styles for accessibility */
 *:focus {
   outline: 2px solid theme('colors.primary.500');
   outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: theme('colors.primary.500');
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
 }
 
 /* Button base styles */
@@ -72,19 +91,15 @@ body {
   }
 
   .btn-primary {
-    @apply btn bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 shadow-sm;
+    @apply bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500;
   }
 
   .btn-secondary {
-    @apply btn bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-500 shadow-sm;
+    @apply bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-500;
   }
 
   .btn-outline {
-    @apply btn border border-neutral-300 text-neutral-700 hover:bg-neutral-50 focus:ring-neutral-500;
-  }
-
-  .btn-ghost {
-    @apply btn text-neutral-600 hover:bg-neutral-100 focus:ring-neutral-500;
+    @apply border border-neutral-300 text-neutral-700 hover:bg-neutral-50 focus:ring-neutral-500;
   }
 
   .btn-sm {
@@ -95,8 +110,45 @@ body {
     @apply px-6 py-3 text-base;
   }
 
-  .btn-xl {
-    @apply px-8 py-4 text-lg;
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden;
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-md hover:border-neutral-300;
+  }
+
+  /* Accessibility improvements */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .btn-primary {
+      @apply border-2 border-black;
+    }
+    
+    .card {
+      @apply border-2 border-black;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -112,17 +164,6 @@ body {
 
   .input-success {
     @apply border-green-300 focus:ring-green-500 focus:border-green-500;
-  }
-}
-
-/* Card styles */
-@layer components {
-  .card {
-    @apply bg-white rounded-xl shadow-soft border border-neutral-200;
-  }
-
-  .card-hover {
-    @apply card transition-all duration-300 hover:shadow-medium hover:-translate-y-1;
   }
 }
 

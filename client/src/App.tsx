@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from './store';
@@ -12,22 +12,6 @@ import './styles/rtl.css'; // Import RTL styles
 import Layout from './components/layout/Layout';
 import LoadingScreen from './components/ui/LoadingScreen';
 
-// Pages
-import HomePage from './pages/HomePage';
-import RestaurantsPage from './pages/RestaurantsPage';
-import RestaurantDetailPage from './pages/RestaurantDetailPage';
-import LoginPage from './pages/auth/LoginPage';
-import RegisterPage from './pages/auth/RegisterPage';
-import ProfilePage from './pages/ProfilePage';
-import OrdersPage from './pages/OrdersPage';
-import OrderDetailPage from './pages/OrderDetailPage';
-import CartPage from './pages/CartPage';
-import CheckoutPage from './pages/CheckoutPage';
-import PaymentPage from './pages/PaymentPage';
-import OrderConfirmationPage from './pages/OrderConfirmationPage';
-import NotFoundPage from './pages/NotFoundPage';
-import UnauthorizedPage from './pages/UnauthorizedPage';
-
 // Dashboard Pages
 import CustomerDashboard from './pages/dashboard/customer/CustomerDashboard';
 import OwnerDashboard from './pages/dashboard/owner/OwnerDashboard';
@@ -37,6 +21,22 @@ import AdminDashboard from './pages/dashboard/admin/AdminDashboard';
 // Components
 import RoleGuard from './components/RoleGuard';
 import { UserRole } from './types';
+
+// Lazy load pages for better performance
+const HomePage = React.lazy(() => import('./pages/HomePage'));
+const RestaurantsPage = React.lazy(() => import('./pages/RestaurantsPage'));
+const RestaurantDetailPage = React.lazy(() => import('./pages/RestaurantDetailPage'));
+const LoginPage = React.lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage = React.lazy(() => import('./pages/auth/RegisterPage'));
+const ProfilePage = React.lazy(() => import('./pages/ProfilePage'));
+const OrdersPage = React.lazy(() => import('./pages/OrdersPage'));
+const OrderDetailPage = React.lazy(() => import('./pages/OrderDetailPage'));
+const CartPage = React.lazy(() => import('./pages/CartPage'));
+const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage'));
+const PaymentPage = React.lazy(() => import('./pages/PaymentPage'));
+const OrderConfirmationPage = React.lazy(() => import('./pages/OrderConfirmationPage'));
+const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'));
+const UnauthorizedPage = React.lazy(() => import('./pages/UnauthorizedPage'));
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -92,7 +92,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      <Routes>
+      <Suspense fallback={<LoadingScreen />}>
+        <Routes>
         {/* Public Routes */}
         <Route path="/login" element={
           <PublicRoute>
@@ -185,7 +186,8 @@ const App: React.FC = () => {
           {/* 404 Page */}
           <Route path="*" element={<NotFoundPage />} />
         </Route>
-      </Routes>
+        </Routes>
+      </Suspense>
     </div>
   );
 };

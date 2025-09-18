@@ -28,24 +28,30 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, index = 0 }
       transition={{ delay: index * 0.1 }}
       whileHover={{ y: -4 }}
       className="card-hover overflow-hidden"
+      role="article"
+      aria-label={`Restaurant: ${isArabic ? restaurant.nameAr : restaurant.name}`}
     >
-      <Link to={`/restaurants/${restaurant.id}`} className="block">
+      <Link to={`/restaurants/${restaurant.id}`} className="block" aria-label={`View details for ${isArabic ? restaurant.nameAr : restaurant.name}`}>
         {/* Restaurant Image */}
         <div className="relative h-48 bg-neutral-200 overflow-hidden">
           <Image
             src={restaurant.coverImage || restaurant.image}
-            alt={isArabic ? restaurant.nameAr : restaurant.name}
+            alt={`${isArabic ? restaurant.nameAr : restaurant.name} restaurant image`}
             className="w-full h-full"
             fallbackText={isArabic ? restaurant.nameAr.charAt(0) : restaurant.name.charAt(0)}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
 
           {/* Status Badge */}
           <div className="absolute top-3 right-3 rtl:right-auto rtl:left-3">
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-              restaurant.isOpen
-                ? 'bg-green-100 text-green-800'
-                : 'bg-red-100 text-red-800'
-            }`}>
+            <span 
+              className={`px-2 py-1 rounded-full text-xs font-medium ${
+                restaurant.isOpen
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-red-100 text-red-800'
+              }`}
+              aria-label={`Restaurant is ${restaurant.isOpen ? 'open' : 'closed'}`}
+            >
               {restaurant.isOpen
                 ? (isArabic ? 'مفتوح' : 'Open')
                 : (isArabic ? 'مغلق' : 'Closed')
@@ -56,7 +62,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, index = 0 }
           {/* Delivery Time Badge */}
           <div className="absolute bottom-3 left-3 rtl:left-auto rtl:right-3">
             <div className="bg-black bg-opacity-60 text-white px-2 py-1 rounded-lg flex items-center space-x-1 rtl:space-x-reverse text-xs">
-              <FiClock className="h-3 w-3" />
+              <FiClock className="h-3 w-3" aria-hidden="true" />
               <span>{restaurant.deliveryTime} {isArabic ? 'د' : 'min'}</span>
             </div>
           </div>
