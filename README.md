@@ -27,7 +27,7 @@
 **Aswan Food** is a comprehensive food delivery web application specifically designed for Aswan Governorate, Egypt. It provides an advanced user experience with full Arabic and English support, featuring a modern and responsive user interface.
 
 ## 🚀 الروابط المباشرة | Live Demo
-- **Frontend**: [أسوان فود - الواجهة الأمامية](https://aswan-food-delivery.onrender.com)
+- **Frontend**: [أسوان فود - الواجهة الأمامية](https://aswan-food-delivery-1.onrender.com)
 - **Backend API**: [API Documentation](https://aswan-food-delivery.onrender.com/api)
 - **Database**: MongoDB Atlas Cloud
 - **Real-time**: Socket.IO Integration
@@ -447,10 +447,10 @@ REACT_APP_GOOGLE_MAPS_API_KEY="your-google-maps-api-key"
 
 ## 👨‍💻 المطور | Author
 
-**عبدالله محمد** | **Abdullah Mohamed**
+**عبدالرحمن عماد** | **Abdelrahman Emad**
 - 🌐 **GitHub**: [@abdo2233work2233](https://github.com/abdo2233work2233)
 - 📧 **البريد الإلكتروني**: abdo2233work2233@gmail.com
-- 💼 **LinkedIn**: [عبدالله محمد](https://linkedin.com/in/abdullah-mohamed)
+- 💼 **LinkedIn**: [عبدالرحمن عماد](https://linkedin.com/in/abdo-emad-249429163/)
 
 ## 🙏 شكر وتقدير | Acknowledgments
 
