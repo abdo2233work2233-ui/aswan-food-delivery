@@ -61,13 +61,13 @@ jobs:
         NODE_ENV: test
       run: npm test
 
-        - name: Run backend linting
-          working-directory: ./server
-          run: npm run lint || true
+    - name: Run backend linting
+      working-directory: ./server
+      run: npm run lint || true
 
-        - name: Run backend security audit
-          working-directory: ./server
-          run: npm audit --audit-level=high || true
+    - name: Run backend security audit
+      working-directory: ./server
+      run: npm audit --audit-level=high || true
 
   # Frontend Tests
   frontend-test:
@@ -89,17 +89,17 @@ jobs:
       working-directory: ./client
       run: npm ci
 
-        - name: Run frontend tests
-          working-directory: ./client
-          run: npm test -- --coverage --watchAll=false
+    - name: Run frontend tests
+      working-directory: ./client
+      run: npm test -- --coverage --watchAll=false
 
-        - name: Run frontend linting
-          working-directory: ./client
-          run: npm run lint || true
+    - name: Run frontend linting
+      working-directory: ./client
+      run: npm run lint || true
 
-        - name: Run frontend security audit
-          working-directory: ./client
-          run: npm audit --audit-level=high || true
+    - name: Run frontend security audit
+      working-directory: ./client
+      run: npm audit --audit-level=high || true
 
     - name: Build frontend
       working-directory: ./client
