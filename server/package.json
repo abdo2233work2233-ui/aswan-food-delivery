@@ -10,6 +10,10 @@
     "migrate": "npx prisma migrate dev",
     "generate": "npx prisma generate",
     "seed": "npx prisma db seed",
+    "seed:aswan": "ts-node prisma/aswan-seed.ts",
+    "seed:nubian": "ts-node prisma/nubian-dishes.ts",
+    "seed:specialized": "ts-node prisma/specialized-dishes.ts",
+    "seed:all": "npm run seed:aswan && npm run seed:nubian && npm run seed:specialized",
     "studio": "npx prisma studio",
     "test": "jest",
     "test:watch": "jest --watch"
