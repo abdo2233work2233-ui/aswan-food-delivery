@@ -1,24 +1,24 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:15-alpine
-    container_name: aswan-food-postgres-prod
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-aswan_food_db}
-      POSTGRES_USER: ${POSTGRES_USER:-aswan_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aswan_password}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - aswan-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aswan_user}"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+  # MongoDB Database (using external MongoDB Atlas)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: aswan-food-postgres-prod
+  #   environment:
+  #     POSTGRES_DB: ${POSTGRES_DB:-aswan_food_db}
+  #     POSTGRES_USER: ${POSTGRES_USER:-aswan_user}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-aswan_password}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - aswan-network
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-aswan_user}"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
 
   # Redis Cache
   redis:
@@ -55,8 +55,6 @@ services:
     volumes:
       - ./server/uploads:/app/uploads
     depends_on:
-      postgres:
-        condition: service_healthy
       redis:
         condition: service_healthy
     networks:
@@ -90,8 +88,8 @@ services:
       retries: 3
 
 volumes:
-  postgres_data:
-    driver: local
+  # postgres_data:
+  #   driver: local
   redis_data:
     driver: local
 

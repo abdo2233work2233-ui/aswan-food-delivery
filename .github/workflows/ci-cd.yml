@@ -8,9 +8,7 @@ on:
 
 env:
   NODE_VERSION: '18.x'
-  POSTGRES_DB: aswan_food_test
-  POSTGRES_USER: test_user
-  POSTGRES_PASSWORD: test_password
+  MONGODB_URI: mongodb+srv://work23abdo23_db_user:mOFAZbgfzCpWMpIk@cluster0.wohgveh.mongodb.net/aswan_food_test?retryWrites=true&w=majority&appName=Cluster0
   REDIS_URL: redis://localhost:6379
   JWT_SECRET: test-jwt-secret-for-ci
 
@@ -21,20 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     
     services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_DB: ${{ env.POSTGRES_DB }}
-          POSTGRES_USER: ${{ env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-      
       redis:
         image: redis:7-alpine
         options: >-
@@ -63,23 +47,27 @@ jobs:
     - name: Setup test database
       working-directory: ./server
       env:
-        DATABASE_URL: postgresql://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}
+        DATABASE_URL: ${{ env.MONGODB_URI }}
       run: |
         npx prisma generate
-        npx prisma migrate deploy
+        npx prisma db push
 
     - name: Run backend tests
       working-directory: ./server
       env:
-        DATABASE_URL: postgresql://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}
+        DATABASE_URL: ${{ env.MONGODB_URI }}
         REDIS_URL: ${{ env.REDIS_URL }}
         JWT_SECRET: ${{ env.JWT_SECRET }}
         NODE_ENV: test
       run: npm test
 
-    - name: Run backend linting
-      working-directory: ./server
-      run: npm run lint || true
+        - name: Run backend linting
+          working-directory: ./server
+          run: npm run lint || true
+
+        - name: Run backend security audit
+          working-directory: ./server
+          run: npm audit --audit-level=high || true
 
   # Frontend Tests
   frontend-test:
@@ -101,13 +89,17 @@ jobs:
       working-directory: ./client
       run: npm ci
 
-    - name: Run frontend tests
-      working-directory: ./client
-      run: npm test -- --coverage --watchAll=false
+        - name: Run frontend tests
+          working-directory: ./client
+          run: npm test -- --coverage --watchAll=false
 
-    - name: Run frontend linting
-      working-directory: ./client
-      run: npm run lint || true
+        - name: Run frontend linting
+          working-directory: ./client
+          run: npm run lint || true
+
+        - name: Run frontend security audit
+          working-directory: ./client
+          run: npm audit --audit-level=high || true
 
     - name: Build frontend
       working-directory: ./client

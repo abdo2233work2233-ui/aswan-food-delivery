@@ -24,7 +24,7 @@ beforeAll(async () => {
   // Set test environment
   process.env.NODE_ENV = 'test';
   process.env.JWT_SECRET = 'test-jwt-secret';
-  process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgresql://test:test@localhost:5432/aswan_food_test';
+  process.env.DATABASE_URL = process.env.DATABASE_URL || 'mongodb+srv://work23abdo23_db_user:mOFAZbgfzCpWMpIk@cluster0.wohgveh.mongodb.net/aswan_food_test?retryWrites=true&w=majority&appName=Cluster0';
 });
 
 afterAll(async () => {

@@ -1,22 +1,22 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:15-alpine
-    container_name: aswan-food-postgres
-    environment:
-      POSTGRES_DB: aswan_food_db
-      POSTGRES_USER: aswan_user
-      POSTGRES_PASSWORD: aswan_password
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./server/prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - aswan-network
-    restart: unless-stopped
+  # MongoDB Database (using external MongoDB Atlas)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: aswan-food-postgres
+  #   environment:
+  #     POSTGRES_DB: aswan_food_db
+  #     POSTGRES_USER: aswan_user
+  #     POSTGRES_PASSWORD: aswan_password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #     - ./server/prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
+  #   networks:
+  #     - aswan-network
+  #   restart: unless-stopped
 
   # Redis Cache
   redis:
@@ -39,7 +39,7 @@ services:
     container_name: aswan-food-api
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://aswan_user:aswan_password@postgres:5432/aswan_food_db
+      - DATABASE_URL=mongodb+srv://work23abdo23_db_user:mOFAZbgfzCpWMpIk@cluster0.wohgveh.mongodb.net/aswan_food_dev?retryWrites=true&w=majority&appName=Cluster0
       - REDIS_URL=redis://redis:6379
       - JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
       - JWT_REFRESH_SECRET=your-super-secret-refresh-key-change-this-in-production
@@ -52,7 +52,6 @@ services:
       - /app/node_modules
       - ./server/uploads:/app/uploads
     depends_on:
-      - postgres
       - redis
     networks:
       - aswan-network
@@ -81,8 +80,8 @@ services:
     command: npm start
 
 volumes:
-  postgres_data:
-    driver: local
+  # postgres_data:
+  #   driver: local
   redis_data:
     driver: local
 
