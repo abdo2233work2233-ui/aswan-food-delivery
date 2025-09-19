@@ -205,22 +205,15 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Notify deployment success
-      uses: 8398a7/action-slack@v3
-      with:
-        status: success
-        text: "🚀 Aswan Food deployed successfully to Render!"
-        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        channel: "#deployments"
-        username: "GitHub Actions"
-        icon_emoji: ":rocket:"
+      run: |
+        echo "🚀 Aswan Food deployed successfully to Render!"
+        echo "✅ Backend: https://aswan-food-delivery.onrender.com"
+        echo "✅ Frontend: https://aswan-food-delivery-1.onrender.com"
+        echo "🎉 Deployment completed successfully!"
 
     - name: Notify deployment failure
-      uses: 8398a7/action-slack@v3
       if: failure()
-      with:
-        status: failure
-        text: "❌ Aswan Food deployment failed!"
-        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        channel: "#deployments"
-        username: "GitHub Actions"
-        icon_emoji: ":x:"
+      run: |
+        echo "❌ Aswan Food deployment failed!"
+        echo "Please check the logs for more details."
+        exit 1
