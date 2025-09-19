@@ -6,8 +6,12 @@ import { Toaster } from 'react-hot-toast';
 
 import { store } from './store';
 import App from './App';
+import { preloadCriticalResources } from './utils/performance';
 import './i18n'; // Initialize i18n
 import './index.css';
+
+// Preload critical resources
+preloadCriticalResources();
 
 // Register service worker
 if ('serviceWorker' in navigator) {
