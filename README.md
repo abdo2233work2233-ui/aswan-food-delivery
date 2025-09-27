@@ -450,7 +450,7 @@ REACT_APP_GOOGLE_MAPS_API_KEY="your-google-maps-api-key"
 **عبدالرحمن عماد** | **Abdelrahman Emad**
 - 🌐 **GitHub**: [@abdo2233work2233](https://github.com/abdo2233work2233)
 - 📧 **البريد الإلكتروني**: abdo2233work2233@gmail.com
-- 💼 **LinkedIn**: [عبدالرحمن عماد](https://linkedin.com/in/abdo-emad-249429163/)
+- 💼 **LinkedIn**: [عبدالرحمن عماد](https://www.linkedin.com/in/abdelrahman-emad-915252386/)
 
 ## 🙏 شكر وتقدير | Acknowledgments
 
